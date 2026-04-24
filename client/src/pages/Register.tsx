@@ -11,7 +11,7 @@ const Register: React.FC = () => {
   const [role, setRole] = useState('student');
   const { login } = useAuth();
   const navigate = useNavigate();
-
+//hello
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
