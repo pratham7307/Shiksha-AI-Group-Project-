@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: 'https://shikshaai-backend-3mna.onrender.com/api',
+    baseURL: 'https://shikshaai-backend-3mna.onrender.com',
 });
 
 // Simple Auth Injector

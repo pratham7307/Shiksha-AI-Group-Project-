@@ -30,7 +30,11 @@ const app = express();
 
 // CORS
 app.use(cors({
-    origin: 'https://shiksha-ai-group-project.vercel.app',
+    origin: [
+        'https://shiksha-ai-group-project.vercel.app',
+        'https://shiksha-ai-group-project-kc7t7spio-pratham7307s-projects.vercel.app',
+        /\.vercel\.app$/
+    ],
     credentials: true
 }));
 
