@@ -15,7 +15,7 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await API.post('/auth/register', { name, email, password, role });
+      const { data } = await API.post('/api/auth/register', { name, email, password, role });
       login(data);
       navigate('/dashboard');
     } catch (error) {
