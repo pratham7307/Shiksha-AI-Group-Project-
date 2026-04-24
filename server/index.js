@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+
+dotenv.config();
+connectDB();
 
 // Create uploads directory if it doesn't exist
 const uploadDir = path.join(__dirname, 'uploads');
@@ -22,21 +26,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-dotenv.config();
-connectDB();
-
 const app = express();
 
-// Manual CORS
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
+// CORS
+app.use(cors({
+    origin: 'https://shiksha-ai-group-project.vercel.app',
+    credentials: true
+}));
 
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
