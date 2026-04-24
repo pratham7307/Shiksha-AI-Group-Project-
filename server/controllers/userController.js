@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
         const userExists = await User.findOne({ email });
         if (userExists) return res.status(400).json({ message: 'User already exists' });
 
-        const isApproved = role !== 'student';
+        const isApproved = true; // Auto approve all users
         const user = await User.create({ name, email, password, role, isApproved });
         if (user) {
             res.status(201).json({
@@ -32,9 +32,6 @@ const loginUser = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (user && (await user.matchPassword(password))) {
-            if (user.role === 'student' && !user.isApproved) {
-                return res.status(403).json({ message: 'Your account is pending approval by an admin or teacher.' });
-            }
             res.json({
                 _id: user._id,
                 name: user.name,
@@ -131,7 +128,6 @@ const deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (user) {
-            // Teachers can only delete students
             if (req.user.role === 'teacher' && user.role !== 'student') {
                 return res.status(403).json({ message: 'Teachers can only remove student accounts' });
             }
@@ -146,4 +142,3 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = { registerUser, loginUser, getUserProfile, linkChild, getAllUsers, approveUser, deleteUser };
-
