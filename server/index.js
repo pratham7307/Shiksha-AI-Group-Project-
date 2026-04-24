@@ -30,11 +30,13 @@ const app = express();
 
 // CORS
 app.use(cors({
-    origin: [
-        'https://shiksha-ai-group-project.vercel.app',
-        'https://shiksha-ai-group-project-kc7t7spio-pratham7307s-projects.vercel.app',
-        /\.vercel\.app$/
-    ],
+    origin: function(origin, callback) {
+        if (!origin) return callback(null, true);
+        if (origin.endsWith('.vercel.app')) {
+            return callback(null, true);
+        }
+        callback(new Error('Not allowed by CORS'));
+    },
     credentials: true
 }));
 
