@@ -13,11 +13,11 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data: profileData } = await API.get('/auth/profile');
+      const { data: profileData } = await API.get('/api/auth/profile');
       setProfile(profileData);
-      const { data: recData } = await API.get('/ai/recommend');
+      const { data: recData } = await API.get('/api/ai/recommend');
       setRecs(recData);
-      const { data: testData } = await API.get('/tests');
+      const { data: testData } = await API.get('/api/tests');
       setTests(testData);
     };
     fetchData();
@@ -30,8 +30,8 @@ const Dashboard: React.FC = () => {
     e.preventDefault();
     setLinking(true);
     try {
-      await API.post('/auth/link-child', { childEmail });
-      const { data } = await API.get('/auth/profile');
+      await API.post('/api/auth/link-child', { childEmail });
+      const { data } = await API.get('/api/auth/profile');
       setProfile(data);
       alert('Child linked successfully!');
     } catch (error: any) {

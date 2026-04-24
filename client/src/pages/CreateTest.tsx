@@ -17,7 +17,7 @@ const CreateTest: React.FC = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const { data } = await API.get('/courses');
+      const { data } = await API.get('/api/courses');
       setCourses(data);
     };
     fetchCourses();
@@ -51,7 +51,7 @@ const CreateTest: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await API.post('/tests', test);
+      await API.post('/api/tests', test);
       alert('Test Scheduled Successfully!');
       navigate('/dashboard');
     } catch (error) {

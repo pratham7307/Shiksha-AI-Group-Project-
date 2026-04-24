@@ -15,7 +15,7 @@ const TestPage: React.FC = () => {
 
   useEffect(() => {
     const fetchTest = async () => {
-      const { data } = await API.get(`/tests/${id}`);
+      const { data } = await API.get(`/api/tests/${id}`);
       setTest(data);
       setAnswers(new Array(data.questions.length).fill(''));
       setTimeLeft(data.duration * 60);
@@ -43,7 +43,7 @@ const TestPage: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await API.post('/tests/submit', {
+      const { data } = await API.post('/api/tests/submit', {
         testId: id,
         answers
       });

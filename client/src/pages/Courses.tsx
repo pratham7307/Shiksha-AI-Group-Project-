@@ -9,7 +9,7 @@ const Courses: React.FC = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const { data } = await API.get('/courses');
+      const { data } = await API.get('/api/courses');
       setCourses(data);
     };
     fetchCourses();

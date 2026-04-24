@@ -16,7 +16,7 @@ const AdminPanel: React.FC = () => {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await API.get('/auth');
+      const { data } = await API.get('/api/auth');
       setUsers(data);
     } catch (error) {
       console.error('Failed to fetch users');
@@ -27,7 +27,7 @@ const AdminPanel: React.FC = () => {
 
   const handleApprove = async (userId: string) => {
     try {
-      await API.put(`/auth/approve/${userId}`);
+      await API.put(`/api/auth/approve/${userId}`);
       setUsers(users.map(u => u._id === userId ? { ...u, isApproved: true } : u));
     } catch (error) {
       alert('Approval failed');
@@ -37,7 +37,7 @@ const AdminPanel: React.FC = () => {
   const handleDelete = async (userId: string) => {
     if (!window.confirm('Are you sure you want to remove this user? This action cannot be undone.')) return;
     try {
-      await API.delete(`/auth/${userId}`);
+      await API.delete(`/api/auth/${userId}`);
       setUsers(users.filter(u => u._id !== userId));
     } catch (error) {
       alert('Deletion failed');

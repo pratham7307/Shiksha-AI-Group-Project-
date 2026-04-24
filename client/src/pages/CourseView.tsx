@@ -17,13 +17,13 @@ const CourseView: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data: courseData } = await API.get(`/courses/${id}`);
+      const { data: courseData } = await API.get(`/api/courses/${id}`);
       setCourse(courseData);
       
-      const { data: profile } = await API.get('/auth/profile');
+      const { data: profile } = await API.get('/api/auth/profile');
       setIsEnrolled(profile.enrolledCourses?.some((courseId: string) => courseId.toString() === id) || user?.role !== 'student');
 
-      const { data: doubtData } = await API.get(`/doubts/${courseData.videos[0]._id}`);
+      const { data: doubtData } = await API.get(`/api/doubts/${courseData.videos[0]._id}`);
       setDoubts(doubtData);
     };
     fetchData();
@@ -31,7 +31,7 @@ const CourseView: React.FC = () => {
 
   const handleEnroll = async () => {
     try {
-      await API.post(`/courses/enroll/${id}`);
+      await API.post(`/api/courses/enroll/${id}`);
       setIsEnrolled(true);
       alert('Successfully Enrolled!');
     } catch (error: any) {
@@ -42,7 +42,7 @@ const CourseView: React.FC = () => {
   const handlePostDoubt = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return alert('Please login to post doubts');
-    const { data } = await API.post('/doubts', {
+    const { data } = await API.post('/api/doubts', {
       videoId: course.videos[activeVideo]._id,
       question: newDoubt
     });
@@ -54,7 +54,7 @@ const CourseView: React.FC = () => {
     if (!newDoubt) return;
     setLoadingAi(true);
     try {
-      const { data } = await API.post('/ai/chat', {
+      const { data } = await API.post('/api/ai/chat', {
         question: newDoubt,
         context: `Course: ${course.title}, Topic: ${course.videos[activeVideo].topic}`
       });

@@ -22,7 +22,7 @@ const CreateCourse: React.FC = () => {
     setUploading(type === 'thumbnail' ? 'thumbnail' : `video-${index}`);
 
     try {
-      const { data } = await API.post('/upload', formData, {
+      const { data } = await API.post('/api/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       
@@ -60,7 +60,7 @@ const CreateCourse: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await API.post('/courses', course);
+      await API.post('/api/courses', course);
       alert('Course Created Successfully!');
       navigate('/courses');
     } catch (error) {

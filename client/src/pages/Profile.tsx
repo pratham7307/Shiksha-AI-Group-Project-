@@ -11,7 +11,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const { data } = await API.get('/auth/profile');
+        const { data } = await API.get('/api/auth/profile');
         setProfile(data);
       } catch (error) {
         console.error('Failed to fetch profile', error);
